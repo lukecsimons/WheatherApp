@@ -6,9 +6,9 @@ public class Application {
 		// TODO Auto-generated method stub				
 		
 		Weather w = new Weather();
+		String conditions = w.GenerateConditions(w.getWeatherConditions());
 		
-		w.GenerateConditions(w.getWeatherConditions());
-		
+		System.out.println(conditions);
 	}
 
 }

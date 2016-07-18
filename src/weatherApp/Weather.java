@@ -20,10 +20,10 @@ public class Weather {
 	}
 	
 	// method to provide current conditions
-	public void GenerateConditions(String[] conditions){
+	public String GenerateConditions(String[] conditions){
 		Randomiser rand = new Randomiser();
 		
-		rand.stringRandomiser(conditions);
+		return rand.stringRandomiser(conditions);
 	}
 	
 	// method to provide current temperature
