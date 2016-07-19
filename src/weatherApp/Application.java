@@ -7,11 +7,20 @@ public class Application {
 		
 		Weather w = new Weather();
 		Randomiser r = new Randomiser();
+		Time t = new Time();
+		
 		
 		String conditions = w.GenerateConditions(w.getWeatherConditions());
 		
-		System.out.println(conditions);
-		System.out.println(w.GetTemperature());
+		int timeOfDay = t.returnTimeOfDay();
+		String[] range = w.getWeatherRange(timeOfDay);
+		
+		System.out.println("time of day is:  " + timeOfDay);
+		
+		for(String s: range){
+			System.out.println(s);
+		}
+		
 	}
 
 }
