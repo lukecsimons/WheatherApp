@@ -1,5 +1,9 @@
 package weatherApp;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 /*
 	The purpose of this class is to generate wheather patterns for the App
  
@@ -12,7 +16,7 @@ public class Weather {
 	private String Conditions;
 	
 	// Class variables
-	private final static String[] weatherConditions = {"Rainy","Cloudy","Sunny","Clear","Snow"};
+	private final static String[] weatherConditions = {"Snow","Rainy","Cloudy","Clear","Sunny"};
 	Randomiser r = new Randomiser();	
 	
 	// multidimensional array to store some basic ranges for the weather conditions
@@ -33,9 +37,11 @@ public class Weather {
 			int max = Integer.parseInt(weatherRanges[i][4]);
 			
 			if (timeOfDay > min &&  timeOfDay < max){
-				for(int p = 0; p < weatherRanges.length; p++){
+				for(int p = 0; p < weatherRanges[i].length; p++){
 					range[p] = weatherRanges[i][p];
 				}
+				
+				continue;
 			}
 		}
 		
@@ -49,15 +55,16 @@ public class Weather {
 		return temp;
 	}
 	
-	// method to get conditions
+	// method - Getter - to get conditions
 	public String[] getWeatherConditions(){
 		return weatherConditions;
 	}	
 	
 	// method to provide current conditions
-	public String GenerateConditions(String[] conditions){		
+	public String GenerateConditions(int temperature){		
 		
-		
+		//new array to to hold weather conditions within scope of method
+		String[] conditions = {"hello"};
 		return r.stringRandomiser(conditions);
 	}
 	
@@ -67,12 +74,19 @@ public class Weather {
 	}
 	
 	// method to provide current Pressure
-	public void GetPressure(){
+	public double GetPressure(double Elevation){
+		// formula to calculate air pressure
+		// to be added in later
+		double barometric = Elevation;
 		
+		// convert psi to hectopascals
+		double pressure = (double) Math.round((barometric * 68.94757293168) * 100) / 100;
+		
+		return pressure;
 	}
 	
 	// method to provide current humidity
-	public void GetHumidity(){
+	public void GetHumidity(int temperature){
 		
 	}
 }
