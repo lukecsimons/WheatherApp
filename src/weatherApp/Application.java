@@ -17,7 +17,7 @@ public class Application {
 		System.out.println("time of day is:  " + tod);
 		
 		int temp = w.GetTemperature(Integer.parseInt(range[1]), Integer.parseInt(range[2]));
-		double pressure = w.GetPressure(14.7);
+		double pressure = w.GetPressure(-1000);
 		
 		System.out.println("The current temperature is: " + temp + " Degrees");
 		System.out.println("The current air pressure is :  " + pressure);

@@ -75,12 +75,12 @@ public class Weather {
 	
 	// method to provide current Pressure
 	public double GetPressure(double Elevation){
-		// formula to calculate air pressure
-		// to be added in later
-		double barometric = Elevation;
+		// formula to generate barometric pressure value
+		// value is in pascals
+		double barometric = Math.pow((1-2.25577 * 0.00001 * Elevation),5.25588) * 101325;
 		
-		// convert psi to hectopascals
-		double pressure = (double) Math.round((barometric * 68.94757293168) * 100) / 100;
+		// convert pascals to hectopascals
+		double pressure = (double) Math.round((barometric / 100) * 100) / 100;
 		
 		return pressure;
 	}
