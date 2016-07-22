@@ -10,7 +10,7 @@ public class Time {
 	SimpleDateFormat timeOfDay = new SimpleDateFormat("HHmm");
 
 	// method that returns time of the day
-	public int returnTimeOfDay(){
+	public int returnTimeOfDayAsInt(){
 		int returnTime = Integer.parseInt(timeOfDay.format(DT));
 		
 		return returnTime;
