@@ -1,5 +1,6 @@
 package weatherApp;
 
+import java.util.Random;
 /*
 	The purpose of this class is to generate wheather patterns for the App
  
@@ -13,9 +14,11 @@ public class Weather {
 	
 	// Class variables
 	private final static String[] weatherConditions = {"Snow","Rainy","Cloudy","Clear","Sunny"};
-	Randomiser r = new Randomiser();	
-	Time t = new Time();
+	
+	//as per encapsulation you do not want classes crossing
+	//Time t = new Time();
 	//int timeOfDayAsInt = t.returnTimeOfDayAsInt();
+	//Randomiser r = new Randomiser();	
 	
 	
 	
@@ -27,10 +30,10 @@ public class Weather {
 	};
 	
 	// Getters and setters
-	public int getTemperature(){
-		String[] temp = getCurrentWeatherRange();
+	public int getTemperature(String[] weatherRange){
+		//String[] temp = getCurrentWeatherRange();
 		// run the calculate method to set the temperature value
-		calculateTemperature(Integer.parseInt(temp[1]),Integer.parseInt(temp[2]));
+		calculateTemperature(Integer.parseInt(weatherRange[1]),Integer.parseInt(weatherRange[2]));
 		
 		return Temperature;
 	};
@@ -45,8 +48,8 @@ public class Weather {
 		return weatherConditions;
 	}	
 	
-	public String[] getCurrentWeatherRange(){
-		String[] currentWeatherRange = getWeatherRange(t.returnTimeOfDayAsInt());
+	public String[] getCurrentWeatherRange(int timeOfDayAsInt){
+		String[] currentWeatherRange = getWeatherRange(timeOfDayAsInt);
 		
 		return currentWeatherRange;
 	};
@@ -77,7 +80,8 @@ public class Weather {
 	
 	// method to provide current temperature
 	public void calculateTemperature(int min, int max){
-		this.Temperature = r.numberGenerator(min, max);
+		Random r = new Random();
+		this.Temperature = r.nextInt(max - min + 1) + min;
 	}
 	
 	// method to provide current Pressure
@@ -98,12 +102,12 @@ public class Weather {
 	}
 	
 	
-	// method to provide current conditions
-	public String GenerateConditions(int temperature){		
-		
-		//new array to to hold weather conditions within scope of method
-		String[] conditions = {"hello"};
-		return r.stringRandomiser(conditions);
-	}
+//	// method to provide current conditions
+//	public String GenerateConditions(int temperature){		
+//		
+//		//new array to to hold weather conditions within scope of method
+//		String[] conditions = {"hello"};
+//		return r.stringRandomiser(conditions);
+//	}
 
 }
