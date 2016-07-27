@@ -11,10 +11,13 @@ public class Application {
 		
 		int timeOfDayAsInt = t.returnTimeOfDayAsInt();
 		String[] weatherRange = w.getCurrentWeatherRange(timeOfDayAsInt);
+		int temp = w.getTemperature(weatherRange);
+		
 		
 		System.out.println(timeOfDayAsInt);
-		System.out.println("The current temperature is:  " + w.getTemperature(weatherRange));
+		System.out.println("The current temperature is:  " + temp);
 		System.out.println("The current pressure is: " + w.getPressure(1250));
+		System.out.println("The current humidity is: " + w.getHumidity());
 		
 	}
 

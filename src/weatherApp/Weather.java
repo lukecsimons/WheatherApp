@@ -9,11 +9,14 @@ public class Weather {
 	//Instance Variables
 	private int Temperature;
 	private double Pressure;
-	private int Humidity;
+	private double Humidity;
 	private String Conditions;
+	private String[] weatherRange;
 	
 	// Class variables
 	private final static String[] weatherConditions = {"Snow","Rainy","Cloudy","Clear","Sunny"};
+	Random r = new Random();
+	
 	
 	//as per encapsulation you do not want classes crossing
 	//Time t = new Time();
@@ -43,21 +46,26 @@ public class Weather {
 		calculatePressure(Elevation);
 		return Pressure;
 	};
+	
+	public double getHumidity(){
+		calculateHumidity();
+		return Humidity;
+	}
 
 	public String[] getWeatherConditions(){
 		return weatherConditions;
 	}	
 	
 	public String[] getCurrentWeatherRange(int timeOfDayAsInt){
-		String[] currentWeatherRange = getWeatherRange(timeOfDayAsInt);
-		
-		return currentWeatherRange;
+		calculateWeatherRange(timeOfDayAsInt);
+	
+		return this.weatherRange;
 	};
 	
 	
 	//Methods
 	// method to check time of the day for the weather range
-	public String[] getWeatherRange(int timeOfDay){
+	public void calculateWeatherRange(int timeOfDay){
 		String[] range = new String[5];
 		
 		// search through the array using the time of day to find out the ranges  
@@ -75,16 +83,16 @@ public class Weather {
 			}
 		}
 		
-		return range;
+		this.weatherRange = range;
 	}
 	
 	// method to provide current temperature
 	public void calculateTemperature(int min, int max){
-		Random r = new Random();
 		this.Temperature = r.nextInt(max - min + 1) + min;
 	}
 	
 	// method to provide current Pressure
+	// parse the elevation in order to return the pressure
 	public void calculatePressure(double Elevation){
 		// formula to generate barometric pressure value
 		// value is in pascals
@@ -97,7 +105,23 @@ public class Weather {
 	}
 	
 	// method to provide current humidity
-	public void GetHumidity(int temperature){
+	public void calculateHumidity(){
+		
+		int wetBulbTemp = r.nextInt(this.Temperature - 10);
+		
+		// dry bulb saturation air pressure
+		double Es = 6108 * Math.log((17.27 * this.Temperature)/(237.3 * this.Temperature));
+		// wet bulb saturation air pressure
+		double Ew = 6108 * Math.log((17.27*wetBulbTemp)/(237.3*wetBulbTemp));
+		// Actual pressure
+		double E = Ew - (0.00066 * (1+ 0.00115 * wetBulbTemp) * (this.Temperature - wetBulbTemp) * this.Pressure);
+		//temp value
+		double B = (Math.log(E / 6.108)) / 17.27;
+		// Dewpoint in Degrees
+		double D = (237.3 * B) / (1 - B);
+		
+		//set the humidity
+		this.Humidity = 100 * (E /Es);
 		
 	}
 	
